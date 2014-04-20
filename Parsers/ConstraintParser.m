@@ -4,6 +4,7 @@
 
 #import "ConstraintParser.h"
 #import "Parser.h"
+#import "NSArray+Extras.h"
 
 @implementation ConstraintParser
 
@@ -11,6 +12,17 @@
 
 - (id)parseConstraint:(NSArray *)tokens views:(NSDictionary *)views
 {
+    Rule (^optionsWithDictionary)(NSDictionary*) = ^(NSDictionary *dict) {
+        NSArray* recognizers = [dict.allKeys map:^id(NSString* name)  {
+            return ^(Parser *s) {
+                return s.token(name).map(^(id key){ return dict[key];});
+            };
+        }];
+        return ^(Parser *p) {
+            return p.oneOf(recognizers);
+        };
+    };
+
     const NSDictionary* properties = @{
             @"left": @(NSLayoutAttributeLeft),
             @"right":@(NSLayoutAttributeRight),
@@ -66,7 +78,7 @@
             return @[lhs, operator, rhs];
         });
     };
-    Parser *start = [Parser stateWithTokens:tokens];
+    Parser *start = [Parser parserWithTokens:tokens];
     Parser* parseResult = rule(start).eof();
     if (parseResult.failed) {
         NSLog(@"result didn't parse: %@", parseResult.errorMessage);

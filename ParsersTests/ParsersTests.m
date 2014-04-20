@@ -7,9 +7,15 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "Parser.h"
 
 @interface ParsersTests : XCTestCase
 
+@end
+
+@interface ParsersTests ()
+
+@property (nonatomic, strong) Parser *parser;
 @end
 
 @implementation ParsersTests
@@ -17,7 +23,7 @@
 - (void)setUp
 {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    self.parser = [Parser parserWithTokens:@[]];
 }
 
 - (void)tearDown
@@ -26,9 +32,10 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testEmpty
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    Parser *parser = self.parser.eof();
+    XCTAssertFalse(parser.failed, @"eof Should succeed on an empty file");
 }
 
 @end

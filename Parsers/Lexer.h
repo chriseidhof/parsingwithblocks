@@ -10,6 +10,6 @@
 
 @interface Lexer : NSObject
 
-+ (NSArray *)lex:(NSString *)contents;
 - (NSArray *)tokenize:(NSString *)contents;
++ (instancetype)lexerWithOperators:(NSArray *)operators;
 @end

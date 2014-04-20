@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5075FA2E1FD54CDC9E73A37C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 690A317B765944089037BE1A /* libPods.a */; };
+		5A416035D12EED6804BE84A6 /* SmalltalkLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4163A1FCCB2774952D2954 /* SmalltalkLexer.m */; };
+		5A4165C3C9A2F41CA81845CA /* LexerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4161187093C5533F9DD2DF /* LexerTests.m */; };
+		5A4169AB408758C289C2781E /* SmalltalkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A416330E9716AF964186703 /* SmalltalkTests.m */; };
 		5A416ADA36E7BD12A111B711 /* PatternMatchingParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4169AEF14F44DA56B4F2F4 /* PatternMatchingParser.m */; };
 		5A416CBED3253C7E08B79EDF /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4164AB9E5B5D617B2DD6B4 /* Parser.m */; };
 		5A416F3C9BEE219B80BB43E8 /* ConstraintParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4163C9A8FBE437B53A46CF /* ConstraintParser.m */; };
@@ -37,9 +40,13 @@
 
 /* Begin PBXFileReference section */
 		0BC51EEC89744B848E014A2B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		5A4161187093C5533F9DD2DF /* LexerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LexerTests.m; sourceTree = "<group>"; };
+		5A416330E9716AF964186703 /* SmalltalkTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmalltalkTests.m; sourceTree = "<group>"; };
+		5A4163A1FCCB2774952D2954 /* SmalltalkLexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmalltalkLexer.m; sourceTree = "<group>"; };
 		5A4163C9A8FBE437B53A46CF /* ConstraintParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstraintParser.m; sourceTree = "<group>"; };
 		5A4164AB9E5B5D617B2DD6B4 /* Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Parser.m; sourceTree = "<group>"; };
 		5A416620F5145BCF8DC73B3E /* ConstraintParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstraintParser.h; sourceTree = "<group>"; };
+		5A416839AC7436B21BD2A813 /* SmalltalkLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmalltalkLexer.h; sourceTree = "<group>"; };
 		5A4169AEF14F44DA56B4F2F4 /* PatternMatchingParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatternMatchingParser.m; sourceTree = "<group>"; };
 		5A416BFDF6D691C4C949EFBB /* PatternMatchingParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatternMatchingParser.h; sourceTree = "<group>"; };
 		5A416C63F56D082A67B18200 /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
@@ -146,6 +153,8 @@
 				5A416C63F56D082A67B18200 /* Parser.h */,
 				5A4169AEF14F44DA56B4F2F4 /* PatternMatchingParser.m */,
 				5A416BFDF6D691C4C949EFBB /* PatternMatchingParser.h */,
+				5A4163A1FCCB2774952D2954 /* SmalltalkLexer.m */,
+				5A416839AC7436B21BD2A813 /* SmalltalkLexer.h */,
 			);
 			path = Parsers;
 			sourceTree = "<group>";
@@ -167,6 +176,8 @@
 			children = (
 				83991353187ECEF10042F7AF /* ParsersTests.m */,
 				8399134E187ECEF10042F7AF /* Supporting Files */,
+				5A4161187093C5533F9DD2DF /* LexerTests.m */,
+				5A416330E9716AF964186703 /* SmalltalkTests.m */,
 			);
 			path = ParsersTests;
 			sourceTree = "<group>";
@@ -327,6 +338,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				83991354187ECEF10042F7AF /* ParsersTests.m in Sources */,
+				5A4165C3C9A2F41CA81845CA /* LexerTests.m in Sources */,
+				5A4169AB408758C289C2781E /* SmalltalkTests.m in Sources */,
+				5A416035D12EED6804BE84A6 /* SmalltalkLexer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

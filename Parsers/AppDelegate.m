@@ -14,12 +14,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    NSString *contents = @"viewOne.centerX *2 >= viewTwo.centerX + 10";
-    NSArray* tokens = [Lexer lex:contents];
-    ConstraintParser *parser = [[ConstraintParser alloc] init];
-    id viewOne = [NSView new];
-    id viewTwo = [NSTextView new];
-    NSLog(@"constraint: %@", [parser parseConstraint:tokens views:NSDictionaryOfVariableBindings(viewOne,viewTwo)]);
 }
 
 @end
