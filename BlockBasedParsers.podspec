@@ -30,7 +30,11 @@ Pod::Spec.new do |s|
 
   s.homepage     = "https://github.com/chriseidhof/parsingwithblocks"
 
-  s.license      = "MIT (example)"
+  s.ios.deployment_target = "6.0"
+  s.osx.deployment_target = "10.8"
+
+
+  s.license      = "MIT"
   
   s.author             = { "Chris Eidhof" => "chris@eidhof.nl" }
   s.social_media_url   = "http://twitter.com/chriseidhof"
@@ -38,7 +42,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "git@github.com:chriseidhof/parsingwithblocks.git", :tag => "0.0.1" }
 
-  s.source_files  = "/Parsers/Parser.{h,m}"
+  s.source_files  = "Parsers/Parser.{h,m}"
 
   s.requires_arc = true
 
