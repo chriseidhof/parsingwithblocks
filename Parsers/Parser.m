@@ -148,7 +148,7 @@ typedef id(^YieldBlock)();
         if (strongSelf.failed) return strongSelf;
 
         BOOL atEnd = strongSelf.tokenIndex == strongSelf.tokens.count;
-        return atEnd ? strongSelf : [strongSelf fail:[NSString stringWithFormat:@"Expected EOF, saw: %@", self.peek]];
+        return atEnd ? strongSelf : [strongSelf fail:[NSString stringWithFormat:@"Expected EOF, saw: %@", strongSelf.peek]];
     };
     self.map = ^( id (^block)(id) ) {
         Parser *strongSelf = weakSelf;
