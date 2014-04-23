@@ -144,8 +144,11 @@ typedef id(^YieldBlock)();
         return block(weakSelf);
     };
     self.eof = ^{
-        BOOL atEnd = self.tokenIndex == self.tokens.count;
-        return atEnd ? self : [self fail:[NSString stringWithFormat:@"Expected EOF, saw: %@", self.peek]];
+        Parser *strongSelf = weakSelf;
+        if (strongSelf.failed) return strongSelf;
+
+        BOOL atEnd = strongSelf.tokenIndex == strongSelf.tokens.count;
+        return atEnd ? strongSelf : [strongSelf fail:[NSString stringWithFormat:@"Expected EOF, saw: %@", self.peek]];
     };
     self.map = ^( id (^block)(id) ) {
         Parser *strongSelf = weakSelf;
@@ -205,7 +208,7 @@ typedef id(^YieldBlock)();
     if (copy != nil) {
         copy.tokens = [self.tokens copy];
         copy.tokenIndex = self.tokenIndex;
-        copy.result = [self.result copy];
+        copy.result = self.result;
         copy.failed = self.failed;
         copy.errorMessage = self.errorMessage;
         [copy setupBlocks]; // TODO: can this be removed?
