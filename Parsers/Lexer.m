@@ -19,7 +19,7 @@
 {
     self = [super init];
     if (self) {
-        self.operators = @[@"=", @"+", @"*", @">=", @"<=", @"."];
+        self.operators = @[@"=", @"+", @"*", @">=", @"<=", @".", @"(", @")"];
     }
 
     return self;

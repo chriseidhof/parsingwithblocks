@@ -141,6 +141,10 @@ typedef id(^YieldBlock)();
         }
     };
     self.rule = ^(Rule block) {
+        assert(block);
+        Parser *strongSelf = weakSelf;
+        if (strongSelf.failed) return strongSelf;
+
         return block(weakSelf);
     };
     self.eof = ^{
