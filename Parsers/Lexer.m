@@ -7,10 +7,15 @@
 //
 
 #import "Lexer.h"
+#import "Tokens.h"
 
 @interface Lexer ()
 
 @property (nonatomic, copy) NSArray *operators;
+@property (nonatomic, strong) NSMutableArray *tokens;
+@property (nonatomic, strong) NSScanner *scanner;
+@property (nonatomic, strong) NSMutableArray *tokenIndices;
+@property (nonatomic) NSUInteger startLocation;
 @end
 
 @implementation Lexer
@@ -26,31 +31,38 @@
 }
 
 
-- (NSArray *)tokenize:(NSString *)contents
+- (Tokens *)tokenize:(NSString *)contents
 {
-    NSScanner *scanner = [NSScanner scannerWithString:contents];
-    NSMutableArray *tokens = [NSMutableArray array];
+    self.scanner = [NSScanner scannerWithString:contents];
+    self.tokens = [NSMutableArray array];
+    self.tokenIndices = [NSMutableArray array];
 
-    while (![scanner isAtEnd]) {
-        NSUInteger startLocation = scanner.scanLocation;
+    while (![self.scanner isAtEnd]) {
+        self.startLocation = self.scanner.scanLocation;
         for (NSString *operator in self.operators) {
-            if ([scanner scanString:operator intoString:NULL]) {
-                [tokens addObject:operator];
+            if ([self.scanner scanString:operator intoString:NULL]) {
+                [self addToken:operator];
             }
         }
         NSString *result = nil;
-        if ([scanner scanCharactersFromSet:[NSCharacterSet letterCharacterSet] intoString:&result]) {
+        if ([self.scanner scanCharactersFromSet:[NSCharacterSet letterCharacterSet] intoString:&result]) {
             NSString *rest = nil;
-            [scanner scanCharactersFromSet:[NSCharacterSet alphanumericCharacterSet] intoString:&rest];
-            [tokens addObject:[result stringByAppendingString:rest ?: @""]];
+            [self.scanner scanCharactersFromSet:[NSCharacterSet alphanumericCharacterSet] intoString:&rest];
+            [self addToken:[result stringByAppendingString:rest ?: @""]];
         }
         double doubleResult = 0;
-        if ([scanner scanDouble:&doubleResult]) {
-            [tokens addObject:@(doubleResult)];
+        if ([self.scanner scanDouble:&doubleResult]) {
+            [self addToken:@(doubleResult)];
         }
-        NSAssert(scanner.scanLocation != startLocation, @"Should have made progress: %lu", scanner.scanLocation);
+        NSAssert(self.scanner.scanLocation != self.startLocation, @"Should have made progress: %lu", self.scanner.scanLocation);
     }
-    return tokens;
+    return [Tokens tokensWithTokens:self.tokens tokenIndices:self.tokenIndices];
+}
+
+- (void)addToken:(id)token
+{
+    [self.tokens addObject:token];
+    [self.tokenIndices addObject:@(self.startLocation)];
 }
 
 + (instancetype)lexerWithOperators:(NSArray *)operators

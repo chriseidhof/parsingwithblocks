@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class Tokens;
+
 @interface Lexer : NSObject
 
-- (NSArray *)tokenize:(NSString *)contents;
+- (Tokens *)tokenize:(NSString *)contents;
 + (instancetype)lexerWithOperators:(NSArray *)operators;
 @end

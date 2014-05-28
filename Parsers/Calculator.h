@@ -4,9 +4,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class ParsingError;
+
 
 @interface Calculator : NSObject
 
 
-- (id)parseExpression:(NSArray *)tokens;
+- (id)parseExpression:(NSArray *)tokens error:(ParsingError **)error;
 @end

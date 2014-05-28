@@ -4,7 +4,17 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol Tokens <NSObject, NSCopying>
+
+- (id)objectAtIndexedSubscript:(NSUInteger)idx;
+- (NSUInteger)sourceLocationOfTokenAtIndex:(NSUInteger)idx;
+- (NSUInteger)count;
+- (id)copy;
+
+@end
+
 @class Parser;
+@class ParsingError;
 
 typedef Parser *(^Rule)(Parser *p);
 
@@ -30,7 +40,8 @@ typedef Parser *(^Rule)(Parser *p);
 @property (nonatomic, copy) Parser * (^tokenWithCondition)(BOOL (^condition)(id));
 
 
-+ (instancetype)parserWithTokens:(NSArray *)array;
++ (instancetype)parserWithTokens:(id <Tokens>)tokens;
 - (NSString *)peek;
 
+- (ParsingError *)error;
 @end

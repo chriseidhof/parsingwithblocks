@@ -3,10 +3,11 @@
 //
 
 #import "Parser.h"
+#import "ParsingError.h"
 
 @interface Parser ()
 
-@property (nonatomic, strong) NSArray *tokens;
+@property (nonatomic, strong) id<Tokens> tokens;
 @property (nonatomic) NSUInteger tokenIndex;
 
 @end
@@ -152,7 +153,7 @@ typedef id(^YieldBlock)();
         if (strongSelf.failed) return strongSelf;
 
         BOOL atEnd = strongSelf.tokenIndex == strongSelf.tokens.count;
-        return atEnd ? strongSelf : [strongSelf fail:[NSString stringWithFormat:@"Expected EOF, saw: %@", strongSelf.peek]];
+        return atEnd ? strongSelf : [strongSelf fail:[NSString stringWithFormat:@"Expected EOF, saw: '%@'", strongSelf.peek]];
     };
     self.map = ^( id (^block)(id) ) {
         Parser *strongSelf = weakSelf;
@@ -176,7 +177,7 @@ typedef id(^YieldBlock)();
         if ([peek isKindOfClass:[NSNumber class]]) {
             return [strongSelf next:peek];
         }
-        NSString* msg = [NSString stringWithFormat:@"Expected a number, saw %@", peek];
+        NSString* msg = [NSString stringWithFormat:@"Expected a number, saw '%@'", peek];
         return [strongSelf fail:msg];
     };
     self.tokenWithCondition = ^(BOOL(^condition)(id)){
@@ -193,10 +194,10 @@ typedef id(^YieldBlock)();
 }
 
 
-+ (instancetype)parserWithTokens:(NSArray *)array
++ (instancetype)parserWithTokens:(id <Tokens>)tokens
 {
     Parser *state = [[self alloc] init];
-    state.tokens = array;
+    state.tokens = tokens;
     state.tokenIndex = 0;
     [state setupBlocks];
 
@@ -234,4 +235,8 @@ typedef id(^YieldBlock)();
 }
 
 
+- (ParsingError *)error
+{
+    return [ParsingError errorWithMessage:self.errorMessage location:[self.tokens sourceLocationOfTokenAtIndex:self.tokenIndex]];
+}
 @end

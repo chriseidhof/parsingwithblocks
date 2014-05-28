@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "BlockBasedParsers"
-  s.version      = "0.0.1"
+  s.version      = "0.1"
   s.summary      = "Parser combinators in Objective-C"
 
   s.description  = <<-DESC
@@ -40,9 +40,9 @@ Pod::Spec.new do |s|
   s.social_media_url   = "http://twitter.com/chriseidhof"
 
 
-  s.source       = { :git => "git@github.com:chriseidhof/parsingwithblocks.git", :tag => "0.0.1" }
+  s.source       = { :git => "git@github.com:chriseidhof/parsingwithblocks.git", :tag => "0.1" }
 
-  s.source_files  = "Parsers/Parser.{h,m}"
+  s.source_files  = "Parsers/Parser.{h,m}", "Parsers/ParsingError.{h,m}", "Parsers/ParsingError.{h,m}"
 
   s.requires_arc = true
 

@@ -4,6 +4,7 @@
 
 #import "Calculator.h"
 #import "Parser.h"
+#import "ParsingError.h"
 
 @interface Calculator ()
 
@@ -23,7 +24,8 @@ static NSNumber* interpret(NSString* operator, NSNumber *lhs, NSNumber *rhs) {
 
 #define to(x) (^(id _____result) { x = _____result; })
 
-- (id)parseExpression:(NSArray*)tokens {
+- (id)parseExpression:(NSArray *)tokens error:(ParsingError **)error
+{
 
     __block id expr;
 
@@ -71,7 +73,13 @@ static NSNumber* interpret(NSString* operator, NSNumber *lhs, NSNumber *rhs) {
 
     expr = sum;
     Parser* parseResult = start.rule(expr).eof();
-    return parseResult.failed ? nil : parseResult.result;
+    if (parseResult.failed) {
+        *error = parseResult.error;
+        return nil;
+    }
+    else {
+        return parseResult.result;
+    }
 }
 
 @end
